@@ -1,4 +1,6 @@
 class PigsController < ApplicationController
+    before_action :authenticate, only: [:create]
+    
     def index
 
         pigs = Pig.all
@@ -8,10 +10,11 @@ class PigsController < ApplicationController
     end
 
     def create
+        
         pig = Pig.create(
             name: params[:name],
+            user: @user
         )
-
         render json: {pig: pig}
     end
 end
